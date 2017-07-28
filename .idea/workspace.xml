@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1b91ba4-7666-4ad7-a654-5d73adcfce8d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java" afterPath="$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/paperscout/Main.java" afterPath="$PROJECT_DIR$/src/main/java/paperscout/Main.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -17,8 +18,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/paperscout/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+            <state relative-caret-position="255">
+              <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -29,10 +30,11 @@
       <file leaf-file-name="PDFHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="11" lean-forward="false" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+            <state relative-caret-position="357">
+              <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#653#661#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,8 +62,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/lib/pdfbox-app-2.0.7.jar!/org/apache/pdfbox/io/RandomAccessRead.class" />
-        <option value="$PROJECT_DIR$/src/main/java/paperscout/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/paperscout/Main.java" />
       </list>
     </option>
   </component>
@@ -366,8 +368,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/paperscout/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+        <state relative-caret-position="255">
+          <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -376,10 +378,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="11" lean-forward="false" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+        <state relative-caret-position="357">
+          <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#653#661#0" expanded="true" />
           </folding>
         </state>
       </provider>
