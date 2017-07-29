@@ -20,8 +20,20 @@ public class PDFHelper {
     public static List<String> getReferences(File pdfFile) throws IOException {
         List<String> references = new LinkedList<String>();
         String text = getText(pdfFile);
-        String[] parts = text.split("(References|REFERENCES)[\\n]*\\[");
+        text = text.replaceAll("\\r", "");
+        String[] parts = text.split("(References|REFERENCES)[\\n]*");
 
-        return Arrays.asList(parts[parts.length].split("\n\n"));
+        for (String s : parts[parts.length-1].split("\\n\\n")) {
+            if (s.startsWith("[")) {
+                references.add(s.replaceAll("\\n", " "));
+            }
+            else {
+                String lastAddedReference = references.get(references.size()-1);
+                lastAddedReference += " " + s.replaceAll("\\n", " ");
+                references.set(references.size()-1, lastAddedReference);
+            }
+        }
+
+        return references;
     }
 }
