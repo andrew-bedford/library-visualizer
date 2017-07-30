@@ -43,11 +43,14 @@ public class PDFHelper {
         //Detecting the position of the sentences in the raw text
         Span spans[] = detector.sentPosDetect(textWithoutRefs);
 
-        //Printing the spans of the sentences in the paragraph
+        //Printing the spans of the sentences
         for (Span span : spans) {
-
-            System.out.println("Sentence: " + textWithoutRefs.substring(span.getStart(), span.getEnd()).replaceAll("\\n", " ").replaceAll("- ", "").trim());
+            System.out.println("Sentence: " + getSentenceFromSpan(textWithoutRefs, span));
         }
+    }
+
+    private static String getSentenceFromSpan(String text, Span span) {
+        return text.substring(span.getStart(), span.getEnd()).replaceAll("\\n", " ").replaceAll("- ", "").trim();
     }
 
     public static List<String> getReferences(File pdfFile) throws IOException {
