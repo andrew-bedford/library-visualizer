@@ -36,17 +36,19 @@ public class Main {
             }
             System.out.println("-------------------------------------------------------------");
 
-            paperTitle = "Language-Based Information-Flow Security";
+            //TODO Verify why '2008 -  Formalizing non-interference for a simple bytecode language in Coq.pdf' returns that the reference id is Pie02 instead of SM03
+            //paperTitle = "Language-Based Information-Flow Security";
+            //paperTitle = "A Model for Delimited Information Release";
+            paperTitle = "Approximate Non-Interference";
             List<File> filesInLibrary = FileHelper.listFiles(new File("C:\\Users\\Andrew\\OneDrive\\Library"), "pdf", true);
             for (File f : filesInLibrary) {
-                System.out.println("-------------------------------------------------------------");
-                System.out.println("Analyzing " + f.getName());
                 references = PDFHelper.getReferences(f);
                 if (references.size() > 0) {
                     boolean paperIsReferenced = PDFHelper.isReferenced(paperTitle, references);
                     if (paperIsReferenced) {
+                        System.out.println("-------------------------------------------------------------");
                         String referenceId = PDFHelper.getReferenceIdentifier(paperTitle, references);
-                        System.out.println("RESULT: '" + f.getName() + "' references '" + paperTitle + "'");
+                        System.out.println("Result: '" + f.getName() + "' references '" + paperTitle + "' as [" + referenceId + "]");
                         List<String> sentences = PDFHelper.getSentences(f);
                         for (String sentence : sentences) {
                             if (PDFHelper.containsCitationToReference(sentence, referenceId)) {

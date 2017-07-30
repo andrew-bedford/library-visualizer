@@ -56,7 +56,7 @@ public class PDFHelper {
     public static boolean isReferenced(String paperTitle, List<String> references) {
         boolean isReferenced = false;
         for (String reference : references) {
-            if (reference.contains(paperTitle)) {
+            if (reference.toLowerCase().contains(paperTitle.toLowerCase())) {
                 isReferenced = true;
                 break;
             }
@@ -66,7 +66,7 @@ public class PDFHelper {
 
     public static String getReferenceIdentifier(String paperTitle, List<String> references) {
         for (String reference : references) {
-            if (reference.contains(paperTitle)) {
+            if (reference.toLowerCase().contains(paperTitle.toLowerCase())) {
                 int start = reference.indexOf("[") + 1;
                 int end = reference.indexOf("]");
                 return reference.substring(start, end);
