@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +32,8 @@ public class PDFHelper {
         return parts[0];
     }
 
-    public static void getSentences(File pdfFile) throws IOException {
+    public static List<String> getSentences(File pdfFile) throws IOException {
+        List<String> sentences = new ArrayList<String>();
         String textWithoutRefs = getTextWithoutReferences(pdfFile);
 
         //region Loading sentence detector model
@@ -45,8 +47,41 @@ public class PDFHelper {
 
         //Printing the spans of the sentences
         for (Span span : spans) {
-            System.out.println("Sentence: " + getSentenceFromSpan(textWithoutRefs, span));
+            sentences.add(getSentenceFromSpan(textWithoutRefs, span));
         }
+
+        return sentences;
+    }
+
+    public static boolean isReferenced(String paperTitle, List<String> references) {
+        boolean isReferenced = false;
+        for (String reference : references) {
+            if (reference.contains(paperTitle)) {
+                isReferenced = true;
+                break;
+            }
+        }
+        return isReferenced;
+    }
+
+    public static String getReferenceIdentifier(String paperTitle, List<String> references) {
+        for (String reference : references) {
+            if (reference.contains(paperTitle)) {
+                int start = reference.indexOf("[") + 1;
+                int end = reference.indexOf("]");
+                return reference.substring(start, end);
+            }
+        }
+        //TODO Throw "not found" exception
+        return "";
+    }
+
+    public static boolean containsCitation(String sentence) {
+        return sentence.matches(".*\\[.*\\].*");
+    }
+
+    public static boolean containsCitationToReference(String sentence, String referenceIdentifier) {
+        return sentence.matches(".*\\[.*" + referenceIdentifier + "\\].*");
     }
 
     private static String getSentenceFromSpan(String text, Span span) {
@@ -64,9 +99,11 @@ public class PDFHelper {
                 references.add(s.replaceAll("\\n", " "));
             }
             else {
-                String lastAddedReference = references.get(references.size()-1);
-                lastAddedReference += " " + s.replaceAll("\\n", " ");
-                references.set(references.size()-1, lastAddedReference);
+                if (references.size() > 0) {
+                    String lastAddedReference = references.get(references.size() - 1);
+                    lastAddedReference += " " + s.replaceAll("\\n", " ");
+                    references.set(references.size() - 1, lastAddedReference);
+                }
             }
         }
 
