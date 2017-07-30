@@ -39,7 +39,11 @@ public class Main {
             //TODO Verify why '2008 -  Formalizing non-interference for a simple bytecode language in Coq.pdf' returns that the reference id is Pie02 instead of SM03
             //paperTitle = "Language-Based Information-Flow Security";
             //paperTitle = "A Model for Delimited Information Release";
-            paperTitle = "Approximate Non-Interference";
+            //paperTitle = "Approximate Non-Interference";
+            //paperTitle = "Dynamic intransitive noninterference";
+            paperTitle = "RobotDroid: A Lightweight Malware Detection Framework on Smartphones"; //(2012) No results
+            //paperTitle = "Malware Obfuscation Techniques: A Brief Survey"; //(2010) 1 result
+            paperTitle = "Static Analysis of Implicit Control Flow: Resolving Java Reflection and Android Intents";
             List<File> filesInLibrary = FileHelper.listFiles(new File("C:\\Users\\Andrew\\OneDrive\\Library"), "pdf", true);
             for (File f : filesInLibrary) {
                 references = PDFHelper.getReferences(f);
@@ -48,11 +52,24 @@ public class Main {
                     if (paperIsReferenced) {
                         System.out.println("-------------------------------------------------------------");
                         String referenceId = PDFHelper.getReferenceIdentifier(paperTitle, references);
-                        System.out.println("Result: '" + f.getName() + "' references '" + paperTitle + "' as [" + referenceId + "]");
+                        System.out.println("Paper Scout: '" + f.getName() + "' references '" + paperTitle + "' as [" + referenceId + "]");
                         List<String> sentences = PDFHelper.getSentences(f);
                         for (String sentence : sentences) {
                             if (PDFHelper.containsCitationToReference(sentence, referenceId)) {
-                                System.out.println("\t" + sentence);
+                                System.out.print("\t - " + sentence);
+
+                                int currentSentenceIndex = sentences.indexOf(sentence);
+                                int nextSentenceIndex = currentSentenceIndex + 1;
+                                if (nextSentenceIndex < sentences.size()) {
+                                    String nextSentence = sentences.get(nextSentenceIndex);
+                                    if (PDFHelper.containsCitation(nextSentence) == false) {
+                                        System.out.println(" " + nextSentence);
+                                    }
+                                    else {
+                                        System.out.println("");
+                                    }
+                                }
+
                             }
                         }
                     }
