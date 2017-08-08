@@ -11,6 +11,9 @@
     body {
       margin:0;
       padding:0;
+      overflow-y:hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12pt;
     }
     #network {
       position:absolute;
@@ -35,18 +38,23 @@
       height:100%;
     }
 
-    #header .title { font-family: Arial, Helvetica, sans-serif; font-size:20pt; left:55px; position:absolute; top:7px; }
+    #header .title { font-size:20pt; left:55px; position:absolute; top:7px; }
     #header .title span { color:cornflowerblue; }
 
-    #details { 
-      position:absolute;
+    #sidepanel { padding:0 20px 20px 20px; position:absolute; display: none;
       top:50px;
       right:0px;
       bottom:-50px;
       width:25%;
       background-color: #2d3037;
       color:white; 
+      overflow-y: scroll;
     }
+
+    #sidepanel .paper-title { float:left; font-size:14pt; font-weight:bold; margin-bottom:20px;}
+    #sidepanel .paper-reference { clear:left; float:left; }
+    .reference { clear:left; float:left; }
+    .reference ul li { font-style: italic; }
   </style>
 </head>
 <body>
@@ -57,7 +65,10 @@
 
 
 <div id="network"></div>
-<div id="details">Hey!</div>
+<div id="sidepanel">
+  <span class="paper-title"></span>
+  <div id="paper-references"></div>
+</div>
 <script type="text/javascript">
 
 nodes = new vis.DataSet([
@@ -105,7 +116,7 @@ edges = new vis.DataSet([
       shape: 'dot',
       scaling:{
         label: {
-          min:1,
+          min:5,
           max:20
         }
       }
@@ -114,13 +125,10 @@ edges = new vis.DataSet([
       arrows:'to'
     },
     interaction:{
-      hover:true,
-      selectConnectedEdges: true
+      hover:true
     },
     physics: {
       barnesHut: {
-        //gravitationalConstant: 0,
-        //centralGravity: 1, 
         springConstant: 0,
         avoidOverlap: 1
       },
@@ -134,30 +142,38 @@ edges = new vis.DataSet([
         let selectedNodes = nodes.get(selectedNodeIds); // retrive node objects from dataSet object
         
         if (selectedNodes.length == 0) {
-          $("#details")();
+          $("#sidepanel").hide();
         }
         else {
           for(let i in selectedNodes ) {
-            $("#details").show();
-            $("#details").html(selectedNodes[i].results);
+            $("#sidepanel").show();
+            $("#paper-references").html(selectedNodes[i].results);
+            $("#sidepanel .paper-title").html(selectedNodes[i].title);
           }     
         }   
     });
 
     //Filter the details to only display results related to the hovered paper 
-    network.on("hoverNode", function (selection) {
-        let selectedNodeIds = selection.nodes; // array of selected node's ids
-        let selectedNodes = nodes.get(selectedNodeIds); // retrive node objects from dataSet object
-        console.log('hoverNode Event:', selection);
-        for(let i in selectedNodes) {
-          //$("#details").find("*[data-title='"+selectedNodes[i].results+"']").hide();
-          
-        }        
+    $("#network").hover(
+      //mouse enter
+      function() {
+        $("#paper-references .reference").css("opacity", "1");
+        //$("#paper-references .reference").show();
+      },
+    //mouse leave
+    function () {});
+
+    network.on("hoverNode", function (event) {
+        var titleOfHoveredPaper = nodes.get(event.node).title;
+        var hoveredReference = $("#paper-references .reference").filter("[data-title='"+titleOfHoveredPaper+"']");
+        hoveredReference.css("opacity", "1");
+        //hoveredReference.show();
+        var otherReferences = $("#paper-references .reference").filter("[data-title!='"+titleOfHoveredPaper+"']");
+        otherReferences.css("opacity", "0.25");
+        //otherReferences.hide();
+        
     });
 
-    $("#header").click(function() {
-      $("#details").toggle();
-    });
 </script>
 
 
