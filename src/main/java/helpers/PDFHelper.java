@@ -80,6 +80,7 @@ public class PDFHelper {
         return sentence.matches(".*\\[.*\\].*");
     }
 
+    //TODO Fix: currently [8] matches on [18] because [18] contains 8 and is between brackets
     public static boolean containsCitationToReference(String sentence, String referenceIdentifier) {
         return sentence.matches(".*\\[.*" + referenceIdentifier + "\\].*");
     }

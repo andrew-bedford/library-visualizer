@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1b91ba4-7666-4ad7-a654-5d73adcfce8d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/html/index.html" afterPath="$PROJECT_DIR$/src/main/html/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java" afterPath="$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,7 +14,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/paperscout/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="402">
@@ -59,30 +58,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PDFHelper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PDFHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="58" column="77" lean-forward="false" selection-start-line="58" selection-start-column="77" selection-end-line="58" selection-end-column="77" />
+            <state relative-caret-position="266">
+              <caret line="82" column="93" lean-forward="true" selection-start-line="82" selection-start-column="93" selection-end-line="82" selection-end-column="93" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-                <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-                <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-                <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-                <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-                <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="1" lean-forward="false" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -119,9 +102,9 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/paperscout/data/Paper.java" />
         <option value="$PROJECT_DIR$/src/main/java/helpers/FileHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java" />
         <option value="$PROJECT_DIR$/src/main/java/paperscout/Main.java" />
         <option value="$PROJECT_DIR$/src/main/html/index.html" />
+        <option value="$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java" />
       </list>
     </option>
   </component>
@@ -455,12 +438,6 @@
           <caret line="58" column="77" lean-forward="true" selection-start-line="58" selection-start-column="77" selection-end-line="58" selection-end-column="77" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -479,12 +456,6 @@
           <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -527,12 +498,6 @@
           <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -563,12 +528,6 @@
           <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -599,12 +558,6 @@
           <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -639,12 +592,6 @@
           <caret line="71" column="55" lean-forward="true" selection-start-line="71" selection-start-column="55" selection-end-line="71" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -684,12 +631,6 @@
           <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -712,12 +653,6 @@
           <caret line="32" column="72" lean-forward="true" selection-start-line="32" selection-start-column="72" selection-end-line="32" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -748,12 +683,6 @@
           <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -805,22 +734,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="58" column="77" lean-forward="false" selection-start-line="58" selection-start-column="77" selection-end-line="58" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1502149835316" expanded="true" signature="2632:2891" ph="{...}" />
-            <marker date="1502149835316" expanded="false" signature="2952:2963" ph=" { " />
-            <marker date="1502149835316" expanded="false" signature="3003:3009" ph=" }" />
-            <marker date="1502149835316" expanded="true" signature="3110:3193" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3265:3386" ph="{...}" />
-            <marker date="1502149835316" expanded="true" signature="3466:4261" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/helpers/FileHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -845,6 +758,16 @@
             <element signature="e#2731#2756#0" expanded="true" />
             <element signature="e#2820#2836#0" expanded="true" />
             <element signature="e#5959#5976#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/helpers/PDFHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="82" column="93" lean-forward="true" selection-start-line="82" selection-start-column="93" selection-end-line="82" selection-end-column="93" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
