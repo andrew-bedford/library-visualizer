@@ -10,5 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="pdfbox-app-2.0.7" level="project" />
     <orderEntry type="library" name="opennlp-tools-1.8.1" level="project" />
+    <orderEntry type="library" name="cermine-impl-1.13-jar-with-dependencies" level="project" />
   </component>
 </module>

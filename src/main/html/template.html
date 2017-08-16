@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+  <title>paper scout</title>
+
+  <script type="text/javascript" src="javascript/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="javascript/vis.min.js"></script>
+  <link href="stylesheets/vis.min.css" rel="stylesheet" type="text/css" />
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+  <style type="text/css">
+    body {
+      margin:0;
+      padding:0;
+      overflow-y:hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12pt;
+    }
+    #network {
+      position:absolute;
+      top:50px;
+      right:0px;
+      bottom:-50px;
+      width:100%;
+      height:100%;
+
+    }
+    
+    #header {
+      position:absolute;
+      top:0px;
+      color:white;
+      width:100%;
+      height:50px;
+      background-color: #2d3037;
+    }
+
+    #header #logo {
+      height:100%;
+    }
+    
+
+    #header .title { float:left; font-size:20pt; left:55px; position:absolute; top:7px; }
+    #header .title span { color:cornflowerblue; }
+    /*#header #search { background: #FF0000; border: none; color: #63717f; font-size: 10pt; height: 35px; right:50%; position:absolute; width:300px; }*/
+
+    #sidepanel { padding:0 20px 20px 20px; position:absolute; display: none;
+      top:50px;
+      right:0px;
+      bottom:-50px;
+      width:25%;
+      background-color: #2d3037;
+      color:white; 
+      overflow-y: scroll;
+    }
+
+    #sidepanel .paper-title { float:left; font-size:14pt; font-weight:bold; margin-bottom:20px;}
+    #sidepanel .paper-reference { clear:left; float:left; }
+    .reference { clear:left; float:left; }
+    .reference ul li { font-style: italic; }
+
+#header .box { position:absolute; left: 50%; transform: translateX(-50%); top:7px;}
+.container-1 { width: 500px; vertical-align: middle; white-space: nowrap; position: relative; }
+.container-1 input#search{ width: 500px; height: 35px; background: #000; border: none; font-size: 10pt;
+ color: #63717f;
+ padding-left: 45px;
+ -webkit-border-radius: 5px;
+ -moz-border-radius: 5px;
+ border-radius: 5px;
+}
+
+.container-1 .icon{
+ position: absolute;
+ top: 0px;
+ margin-left: 17px;
+ margin-top: 7px;
+ z-index: 1;
+ color: #4f5b66;
+}
+  </style>
+</head>
+<body>
+<div id="header">
+  <img id="logo" src="images/logo.png" />
+  <div class="title">paper <span>scout</span></div>
+  <div class="box">
+    <div class="container-1">
+      <span class="icon"><i class="fa fa-search"></i></span>
+      <input type="search" id="search" placeholder="Search..." />
+    </div>
+</div>
+</div>
+
+
+<div id="network"></div>
+<div id="sidepanel">
+  <span class="paper-title"></span>
+  <div id="paper-references"></div>
+</div>
+<script type="text/javascript">
+
+  %%%nodes-and-edges%%%
+
+  // create a network
+  var container = document.getElementById('network');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {
+    nodes: {
+      //shape: 'box',
+      margin: 10,
+      widthConstraint: {
+        maximum: 150
+      },
+      shape: 'dot',
+      scaling:{
+        label: {
+          min:5,
+          max:20
+        }
+      }
+    },
+    edges: {
+      arrows:'to'
+    },
+    interaction:{
+      hover:true
+    },
+    physics: {
+    /*  barnesHut: {
+        springConstant: 0,
+        avoidOverlap: 1
+      },*/
+      forceAtlas2Based: {
+          gravitationalConstant: -26,
+          centralGravity: 0.005,
+          springLength: 230,
+          springConstant: 0.18
+      },
+      maxVelocity: 146,
+      solver: 'forceAtlas2Based',
+      timestep: 0.35,
+      stabilization: {iterations: 150}
+    }
+
+  };
+  var network = new vis.Network(container, data, options);
+  //Event Handlers
+  network.on("doubleClick", function (selection) {
+        let selectedNodeIds = selection.nodes; // array of selected node's ids
+        let selectedNodes = nodes.get(selectedNodeIds); // retrive node objects from dataSet object
+        
+        if (selectedNodes.length == 0) {
+          $("#sidepanel").hide();
+        }
+        else {
+          for(let i in selectedNodes ) {
+            $("#sidepanel").show();
+            $("#paper-references").html(selectedNodes[i].results);
+            $("#sidepanel .paper-title").html(selectedNodes[i].title);
+          }     
+        }   
+    });
+
+    //Filter the details to only display results related to the hovered paper 
+    $("#network").hover(
+      //mouse enter
+      function() {
+        $("#paper-references .reference").css("opacity", "1");
+        //$("#paper-references .reference").show();
+      },
+    //mouse leave
+    function () {});
+
+    network.on("hoverNode", function (event) {
+        var titleOfHoveredPaper = nodes.get(event.node).title;
+        var hoveredReference = $("#paper-references .reference").filter("[data-title='"+titleOfHoveredPaper+"']");
+        hoveredReference.css("opacity", "1");
+        //hoveredReference.show();
+        var otherReferences = $("#paper-references .reference").filter("[data-title!='"+titleOfHoveredPaper+"']");
+        otherReferences.css("opacity", "0.25");
+        //otherReferences.hide();
+        
+    });
+
+</script>
+
+
+
+</body>
+</html>

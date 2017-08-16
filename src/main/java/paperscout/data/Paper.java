@@ -58,7 +58,7 @@ public class Paper {
     }
 
     private String extractAbstract() {
-        return "";
+        return null;
     }
 
     private List<Reference> extractReferences() {

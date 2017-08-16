@@ -144,11 +144,13 @@ public class Main {
         output += "]);\n";
 
         System.out.println(output);
-        try(PrintWriter out = new PrintWriter("filename.txt")){
-            out.println(output);
-        } catch (Exception e) {
-          System.err.println("Unable to write results to file");
-        }
+        writeOutputToHTMLFile(output);
+    }
+
+    private static void writeOutputToHTMLFile(String output) {
+        String templateHTML = FileHelper.readStringFromFile("src/main/html/template.html");
+        String templateWithOutputInserted = templateHTML.replace("%%%nodes-and-edges%%%", output);
+        FileHelper.writeStringToFile("src/main/html/index.html", templateWithOutputInserted);
     }
 
     private static String getPaperTitle(File f1) {

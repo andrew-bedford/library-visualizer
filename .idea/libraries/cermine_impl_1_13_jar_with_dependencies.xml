@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cermine-impl-1.13-jar-with-dependencies">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/cermine-impl-1.13-jar-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
