@@ -20,6 +20,17 @@ public class Library {
         _papers = loadPapers();
     }
 
+    public File getDirectory() { return _directory; }
+    public Set<Paper> getPapers() { return _papers; }
+    public Integer getSize() { return _papers.size(); }
+    public boolean isPresent(Paper paper) { return _papers.contains(paper); }
+    public boolean isPresent(String paperTitle) {
+        //TODO Format paperTitle before testing
+        for(Paper p : _papers) {
+            if (p.getTitle().equals(paperTitle)) { return true; }
+        }
+        return false;
+    }
 
     /**
      * @return Set of papers that are in the library's directory
@@ -28,7 +39,9 @@ public class Library {
         Set<Paper> papers = new HashSet<Paper>();
         List<File> filesInLibrary = FileHelper.listFiles(_directory, "pdf", true);
         for(File f : filesInLibrary) {
-            papers.add(new Paper(f));
+            Paper p = new Paper(f);
+            papers.add(p);
+            System.out.println(String.format("Loaded '%s' [%d/%d]", p.getTitle(), papers.size(), filesInLibrary.size()));
         }
         return papers;
     }

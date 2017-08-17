@@ -2,10 +2,13 @@ package paperscout;
 
 import helpers.FileHelper;
 import helpers.PDFHelper;
+import paperscout.data.Library;
+import paperscout.data.Paper;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,12 +55,15 @@ public class Main {
             HashMap<String, HashSet<String>> relationMap = new HashMap<String, HashSet<String>>();
             HashMap<String, String> resultsMap = new HashMap<String, String>();
 
-            List<File> filesInLibrary = FileHelper.listFiles(new File("C:\\Users\\Andrew Bedford\\OneDrive\\Library\\PaperScout"), "pdf", true);
-            int fileNumber = 1;
-            for (File f1 : filesInLibrary) {
-                String paperTitle = getPaperTitle(f1);
-                System.out.println(String.format("Analyzing '%s' [%d/%d]", paperTitle, fileNumber, filesInLibrary.size()));
+
+            Library library = new Library("C:\\Users\\Andrew Bedford\\OneDrive\\Library\\PaperScout");
+
+            int librarySize = library.getSize();
+            int fileNumber = 0;
+            for (Paper p1 : library.getPapers()) {
                 fileNumber++;
+                String paperTitle = p1.getTitle();
+                System.out.println(String.format("Analyzing '%s' [%d/%d]", paperTitle, fileNumber, librarySize));
 
                 relationMap.put(paperTitle, new HashSet<String>());
 
@@ -148,9 +154,9 @@ public class Main {
     }
 
     private static void writeOutputToHTMLFile(String output) {
-        String templateHTML = FileHelper.readStringFromFile("src/main/html/template.html");
+        String templateHTML = FileHelper.readStringFromFile("src/main/html/templates/main.html");
         String templateWithOutputInserted = templateHTML.replace("%%%nodes-and-edges%%%", output);
-        FileHelper.writeStringToFile("src/main/html/index.html", templateWithOutputInserted);
+        FileHelper.writeStringToFile("src/main/html/main.html", templateWithOutputInserted);
     }
 
     private static String getPaperTitle(File f1) {

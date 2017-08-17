@@ -16,7 +16,7 @@ public class Paper {
     List<Reference> _references;
 
     public Paper(String path) {
-        _file = new File(path);
+        try { _file = new File(path); } catch (Exception e) { System.err.println(String.format("File '%s' not found", path)); }
         _title = extractTitle();
         _text = extractText();
         _abstract = extractAbstract();
@@ -26,6 +26,12 @@ public class Paper {
     public Paper(File file) {
         new Paper(file.getAbsolutePath());
     }
+
+    public String getTitle() { return _title; }
+    public String getText() { return _text; }
+    public String getAbstract() { return _abstract; }
+    public List<Reference> getReferences() { return _references; }
+    public File getFile() { return _file; }
 
     /**
      * @return Returns the paper's title
@@ -62,23 +68,37 @@ public class Paper {
     }
 
     private List<Reference> extractReferences() {
-        List<String> references = new LinkedList<String>();
+        List<Reference> references = new LinkedList<>();
         String text = _text.replaceAll("\\r", "");
+        //Assumption: Papers only have one "reference" section
         String[] parts = text.split("(References|REFERENCES|Bibliography|BIBLIOGRAPHY)[\\n]*");
 
         for (String s : parts[parts.length-1].split("\\n\\n")) {
             if (s.startsWith("[")) {
-                references.add(s.replaceAll("\\n", " "));
+                String r = s.replaceAll("\\n", " ");
+                references.add(new Reference(r));
             }
             else {
                 if (references.size() > 0) {
-                    String lastAddedReference = references.get(references.size() - 1);
-                    lastAddedReference += " " + s.replaceAll("\\n", " ");
-                    references.set(references.size() - 1, lastAddedReference);
+                    Reference lastAddedReference = references.get(references.size() - 1);
+                    String lastRefAppendedWithNextLine = lastAddedReference.getText() + " " + s.replaceAll("\\n", " ");
+                    references.set(references.size() - 1, new Reference(lastRefAppendedWithNextLine));
                 }
             }
         }
 
-        return null;
+        return references;
+    }
+
+    /**
+     * @param p
+     * @return Returns true if paper p references this paper
+     */
+    public boolean isReferencedBy(Paper p) {
+        return p.references(this);
+    }
+
+    public boolean references(Paper p) {
+
     }
 }
