@@ -70,16 +70,17 @@ public class Main {
                 List<String> references;
                 String results = "";
 
-                for (File f : filesInLibrary) {
-                    references = PDFHelper.getReferences(f);
+                for (Paper p2 : library.getPapers()) {
+
+                    references = p2.getReferences();
                     if (references.size() > 0) {
                         boolean paperIsReferenced = PDFHelper.isReferenced(paperTitle, references);
                         if (paperIsReferenced) {
-                            relationMap.get(paperTitle).add(getPaperTitle(f));
+                            relationMap.get(paperTitle).add(p2.getTitle());
 
-                            results += "<div class=\"reference\" data-title=\""+getPaperTitle(f)+"\">";
+                            results += "<div class=\"reference\" data-title=\""+p2.getTitle()+"\">";
                             String referenceId = PDFHelper.getReferenceIdentifier(paperTitle, references);
-                            results += "<span class=\"reference-header\">In '" + getPaperTitle(f) + "' as [" + referenceId + "]</span>";
+                            results += "<span class=\"reference-header\">In '" + p2.getTitle() + "' as [" + referenceId + "]</span>";
                             List<String> sentences = PDFHelper.getSentences(f);
                             results += "<ul>";
                             for (String sentence : sentences) {

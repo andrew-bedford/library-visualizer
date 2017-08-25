@@ -99,6 +99,11 @@ public class Paper {
     }
 
     public boolean references(Paper p) {
-
+        for (Reference r : _references) {
+            if (r.getTitle() == p.getTitle()) { //TODO Do not use only the title (this may lead to collisions (i.e., two papers with the same name, but different authors)
+                return true;
+            }
+        }
+        return false;
     }
 }
