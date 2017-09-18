@@ -9,9 +9,9 @@ public class Reference {
     String _title; //e.g., Declassification: Dimensions and principles
 
     Reference(BibEntry e) {
-        _text = e.getText();
-        _title = e.getFirstFieldValue(BibEntryFieldType.TITLE);
-        _identifier = e.getKey();
+        _text = e.getText() != null ? e.getText() : "";
+        _title = e.getFirstFieldValue(BibEntryFieldType.TITLE) != null ? e.getFirstFieldValue(BibEntryFieldType.TITLE) : "";
+        _identifier = extractReferenceIdentifier();
     }
 
     public String getText() { return _text; }
@@ -22,5 +22,14 @@ public class Reference {
 
     public String getIdentifier() {
         return _identifier;
+    }
+
+    private String extractReferenceIdentifier() {
+        int start = getText().indexOf("[") + 1;
+        int end = getText().indexOf("]");
+        if (start != -1 && end != -1) {
+            return getText().substring(start, end);
+        }
+        return ""; //[ and ] were not present in the text of the reference
     }
 }

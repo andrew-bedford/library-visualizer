@@ -129,7 +129,7 @@ public class Paper {
         catch (Exception e) {
             e.printStackTrace();
         }
-        return _references;
+        return references;
     }
 
     /**
@@ -142,7 +142,10 @@ public class Paper {
 
     public boolean containsReferenceTo(Paper p) {
         for (Reference r : _references) {
-            if (r.getTitle() == p.getTitle()) { //TODO Do not use only the title (this may lead to collisions (i.e., two papers with the same name, but different authors)
+            String normalizedPaperTitle = p.getTitle().toLowerCase().replaceAll("[^a-zA-Z0-9]", "");
+            String normalizedReferenceText = r.getText().toLowerCase().replaceAll("[^a-zA-Z0-9]", "");
+
+            if (normalizedReferenceText.contains(normalizedPaperTitle)) { //TODO Do not use only the title (this may lead to collisions (i.e., two papers with the same name, but different authors)
                 return true;
             }
         }

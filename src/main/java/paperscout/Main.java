@@ -15,6 +15,8 @@ import java.util.logging.Level;
 public class Main {
     public static void main(String[] args) {
         java.util.logging.Logger.getLogger("org.apache.pdfbox").setLevel(Level.SEVERE);
+        java.util.logging.Logger.getLogger("edu.umass.cs.mallet.grmm.inference.TRP").setLevel(Level.SEVERE);
+
         //String fileName = "C:\\Users\\Andrew Bedford\\OneDrive\\Library\\2016 - TaintART - A practical multi-level information-flow tracking system for android runtime.pdf";
         //String fileName = "C:\\Users\\Andrew\\OneDrive\\Library\\2012 - Precise enforcement of progress-sensitive security.pdf";
         //String fileName = "C:\\Users\\Andrew\\OneDrive\\Library\\2003 - Language-Based Information-Flow Security.pdf";
