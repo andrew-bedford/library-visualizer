@@ -2,10 +2,11 @@ package paperscout;
 
 import helpers.FileHelper;
 import helpers.PDFHelper;
+import paperscout.data.Library;
+import paperscout.data.Paper;
+import paperscout.data.Reference;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.logging.Level;
 public class Main {
     public static void main(String[] args) {
         java.util.logging.Logger.getLogger("org.apache.pdfbox").setLevel(Level.SEVERE);
+        java.util.logging.Logger.getLogger("edu.umass.cs.mallet.grmm.inference.TRP").setLevel(Level.SEVERE);
+
         //String fileName = "C:\\Users\\Andrew Bedford\\OneDrive\\Library\\2016 - TaintART - A practical multi-level information-flow tracking system for android runtime.pdf";
         //String fileName = "C:\\Users\\Andrew\\OneDrive\\Library\\2012 - Precise enforcement of progress-sensitive security.pdf";
         //String fileName = "C:\\Users\\Andrew\\OneDrive\\Library\\2003 - Language-Based Information-Flow Security.pdf";
@@ -25,8 +28,8 @@ public class Main {
 
             System.out.println("-------------------------------------------------------------");
 
-            List<String> references = PDFHelper.getReferences(new File(fileName));
-            for (String r : references) {
+            List<String> containsReferenceTo = PDFHelper.getReferences(new File(fileName));
+            for (String r : containsReferenceTo) {
                 System.out.println("Reference : " + r);
             }
             System.out.println("-------------------------------------------------------------");
@@ -35,8 +38,8 @@ public class Main {
 
             //Should return 6
             String paperTitle = "What the app is that? deception and countermeasures in the android user interface";
-            if (PDFHelper.isReferenced(paperTitle, references)) {
-                System.out.println("Identifier: " + PDFHelper.getReferenceIdentifier(paperTitle, references));
+            if (PDFHelper.isReferenced(paperTitle, containsReferenceTo)) {
+                System.out.println("Identifier: " + PDFHelper.getReferenceIdentifier(paperTitle, containsReferenceTo));
             }
             System.out.println("-------------------------------------------------------------");
             */
@@ -52,29 +55,33 @@ public class Main {
             HashMap<String, HashSet<String>> relationMap = new HashMap<String, HashSet<String>>();
             HashMap<String, String> resultsMap = new HashMap<String, String>();
 
-            List<File> filesInLibrary = FileHelper.listFiles(new File("C:\\Users\\Andrew Bedford\\OneDrive\\Library\\PaperScout"), "pdf", true);
-            int fileNumber = 1;
-            for (File f1 : filesInLibrary) {
-                String paperTitle = getPaperTitle(f1);
-                System.out.println(String.format("Analyzing '%s' [%d/%d]", paperTitle, fileNumber, filesInLibrary.size()));
+
+            Library library = new Library("C:\\Users\\Andrew\\OneDrive\\Library\\PaperScout");
+
+            int librarySize = library.getSize();
+            int fileNumber = 0;
+            for (Paper p1 : library.getPapers()) {
                 fileNumber++;
+                String paperTitle = p1.getTitle();
+                System.out.println(String.format("Analyzing '%s' [%d/%d]", paperTitle, fileNumber, librarySize));
 
                 relationMap.put(paperTitle, new HashSet<String>());
 
-                List<String> references;
+                List<Reference> references;
                 String results = "";
 
-                for (File f : filesInLibrary) {
-                    references = PDFHelper.getReferences(f);
-                    if (references.size() > 0) {
-                        boolean paperIsReferenced = PDFHelper.isReferenced(paperTitle, references);
-                        if (paperIsReferenced) {
-                            relationMap.get(paperTitle).add(getPaperTitle(f));
+                for (Paper p2 : library.getPapers()) {
 
-                            results += "<div class=\"reference\" data-title=\""+getPaperTitle(f)+"\">";
+                    references = p2.getReferences();
+                    if (references.size() > 0) {
+                        boolean paperIsReferenced = p2.containsReferenceTo(p1);
+                        if (paperIsReferenced) {
+                            relationMap.get(paperTitle).add(p2.getTitle());
+
+                            results += "<div class=\"reference\" data-title=\""+p2.getTitle()+"\">";
                             String referenceId = PDFHelper.getReferenceIdentifier(paperTitle, references);
-                            results += "<span class=\"reference-header\">In '" + getPaperTitle(f) + "' as [" + referenceId + "]</span>";
-                            List<String> sentences = PDFHelper.getSentences(f);
+                            results += "<span class=\"reference-header\">In '" + p2.getTitle() + "' as [" + referenceId + "]</span>";
+                            List<String> sentences = PDFHelper.getSentences(p2.getFile());
                             results += "<ul>";
                             for (String sentence : sentences) {
                                 if (PDFHelper.containsCitationToReference(sentence, referenceId)) {
@@ -148,9 +155,9 @@ public class Main {
     }
 
     private static void writeOutputToHTMLFile(String output) {
-        String templateHTML = FileHelper.readStringFromFile("src/main/html/template.html");
+        String templateHTML = FileHelper.readStringFromFile("src/main/html/templates/main.html");
         String templateWithOutputInserted = templateHTML.replace("%%%nodes-and-edges%%%", output);
-        FileHelper.writeStringToFile("src/main/html/index.html", templateWithOutputInserted);
+        FileHelper.writeStringToFile("src/main/html/main.html", templateWithOutputInserted);
     }
 
     private static String getPaperTitle(File f1) {
