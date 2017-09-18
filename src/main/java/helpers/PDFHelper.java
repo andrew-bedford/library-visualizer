@@ -5,6 +5,7 @@ import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.util.Span;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import paperscout.data.Reference;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -64,12 +65,12 @@ public class PDFHelper {
         return isReferenced;
     }
 
-    public static String getReferenceIdentifier(String paperTitle, List<String> references) {
-        for (String reference : references) {
-            if (reference.toLowerCase().replaceAll("[^a-zA-Z0-9]", "").contains(paperTitle.toLowerCase().replaceAll("[^a-zA-Z0-9]", ""))) {
-                int start = reference.indexOf("[") + 1;
-                int end = reference.indexOf("]");
-                return reference.substring(start, end);
+    public static String getReferenceIdentifier(String paperTitle, List<Reference> references) {
+        for (Reference reference : references) {
+            if (reference.getText().toLowerCase().replaceAll("[^a-zA-Z0-9]", "").contains(paperTitle.toLowerCase().replaceAll("[^a-zA-Z0-9]", ""))) {
+                int start = reference.getText().indexOf("[") + 1;
+                int end = reference.getText().indexOf("]");
+                return reference.getText().substring(start, end);
             }
         }
         //TODO Throw "not found" exception

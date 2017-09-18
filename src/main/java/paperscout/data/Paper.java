@@ -2,9 +2,14 @@ package paperscout.data;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import pl.edu.icm.cermine.ContentExtractor;
+import pl.edu.icm.cermine.bibref.model.BibEntry;
+import pl.edu.icm.cermine.bibref.model.BibEntryFieldType;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +20,10 @@ public class Paper {
     String _text;
     List<Reference> _references;
 
+    public Paper(File file) {
+        this(file.getAbsolutePath());
+    }
+
     public Paper(String path) {
         try { _file = new File(path); } catch (Exception e) { System.err.println(String.format("File '%s' not found", path)); }
         _title = extractTitle();
@@ -23,9 +32,7 @@ public class Paper {
         _references = extractReferences();
     }
 
-    public Paper(File file) {
-        new Paper(file.getAbsolutePath());
-    }
+
 
     public String getTitle() { return _title; }
     public String getText() { return _text; }
@@ -37,9 +44,23 @@ public class Paper {
      * @return Returns the paper's title
      */
     private String extractTitle() {
-        return extractTitleFromFilename();
+        //return extractTitleFromFilename();
+        return extractTitleUsingCermine();
     }
 
+
+    private String extractTitleUsingCermine() {
+        try {
+            ContentExtractor extractor = new ContentExtractor();
+            InputStream inputStream = new FileInputStream(_file.getAbsolutePath());
+            extractor.setPDF(inputStream);
+            return extractor.getMetadata().getTitle();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     /**
      * @return Returns the paper's title from the file's name (assuming that it has the format "year - title.pdf")
@@ -63,10 +84,13 @@ public class Paper {
         return "";
     }
 
+    //TODO Implement extractAbstract function (extract the text between the keywords Abstract and Introduction?)
     private String extractAbstract() {
-        return null;
+        return "";
     }
 
+    //TODO Use Cermine instead of manually extracting containsReferenceTo. I expect Cermine to be more accurate.
+    /*
     private List<Reference> extractReferences() {
         List<Reference> references = new LinkedList<>();
         String text = _text.replaceAll("\\r", "");
@@ -74,7 +98,7 @@ public class Paper {
         String[] parts = text.split("(References|REFERENCES|Bibliography|BIBLIOGRAPHY)[\\n]*");
 
         for (String s : parts[parts.length-1].split("\\n\\n")) {
-            if (s.startsWith("[")) {
+            if (s.startsWith("[")) { //We assume that every containsReferenceTo have the following form "[...] ..."
                 String r = s.replaceAll("\\n", " ");
                 references.add(new Reference(r));
             }
@@ -88,17 +112,35 @@ public class Paper {
         }
 
         return references;
+    }*/
+
+    private List<Reference> extractReferences() {
+        List<Reference> references = new LinkedList<>();
+        try {
+            ContentExtractor extractor = new ContentExtractor();
+            InputStream inputStream = new FileInputStream(_file.getAbsolutePath());
+            extractor.setPDF(inputStream);
+            List<BibEntry> cermineReferences = extractor.getReferences();
+            for (BibEntry cermineReference : cermineReferences) {
+                references.add(new Reference(cermineReference));
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return _references;
     }
 
     /**
      * @param p
-     * @return Returns true if paper p references this paper
+     * @return Returns true if paper p containsReferenceTo this paper
      */
     public boolean isReferencedBy(Paper p) {
-        return p.references(this);
+        return p.containsReferenceTo(this);
     }
 
-    public boolean references(Paper p) {
+    public boolean containsReferenceTo(Paper p) {
         for (Reference r : _references) {
             if (r.getTitle() == p.getTitle()) { //TODO Do not use only the title (this may lead to collisions (i.e., two papers with the same name, but different authors)
                 return true;

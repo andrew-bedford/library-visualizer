@@ -4,11 +4,9 @@ import helpers.FileHelper;
 import helpers.PDFHelper;
 import paperscout.data.Library;
 import paperscout.data.Paper;
+import paperscout.data.Reference;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -28,8 +26,8 @@ public class Main {
 
             System.out.println("-------------------------------------------------------------");
 
-            List<String> references = PDFHelper.getReferences(new File(fileName));
-            for (String r : references) {
+            List<String> containsReferenceTo = PDFHelper.getReferences(new File(fileName));
+            for (String r : containsReferenceTo) {
                 System.out.println("Reference : " + r);
             }
             System.out.println("-------------------------------------------------------------");
@@ -38,8 +36,8 @@ public class Main {
 
             //Should return 6
             String paperTitle = "What the app is that? deception and countermeasures in the android user interface";
-            if (PDFHelper.isReferenced(paperTitle, references)) {
-                System.out.println("Identifier: " + PDFHelper.getReferenceIdentifier(paperTitle, references));
+            if (PDFHelper.isReferenced(paperTitle, containsReferenceTo)) {
+                System.out.println("Identifier: " + PDFHelper.getReferenceIdentifier(paperTitle, containsReferenceTo));
             }
             System.out.println("-------------------------------------------------------------");
             */
@@ -56,7 +54,7 @@ public class Main {
             HashMap<String, String> resultsMap = new HashMap<String, String>();
 
 
-            Library library = new Library("C:\\Users\\Andrew Bedford\\OneDrive\\Library\\PaperScout");
+            Library library = new Library("C:\\Users\\Andrew\\OneDrive\\Library\\PaperScout");
 
             int librarySize = library.getSize();
             int fileNumber = 0;
@@ -67,21 +65,21 @@ public class Main {
 
                 relationMap.put(paperTitle, new HashSet<String>());
 
-                List<String> references;
+                List<Reference> references;
                 String results = "";
 
                 for (Paper p2 : library.getPapers()) {
 
                     references = p2.getReferences();
                     if (references.size() > 0) {
-                        boolean paperIsReferenced = PDFHelper.isReferenced(paperTitle, references);
+                        boolean paperIsReferenced = p2.containsReferenceTo(p1);
                         if (paperIsReferenced) {
                             relationMap.get(paperTitle).add(p2.getTitle());
 
                             results += "<div class=\"reference\" data-title=\""+p2.getTitle()+"\">";
                             String referenceId = PDFHelper.getReferenceIdentifier(paperTitle, references);
                             results += "<span class=\"reference-header\">In '" + p2.getTitle() + "' as [" + referenceId + "]</span>";
-                            List<String> sentences = PDFHelper.getSentences(f);
+                            List<String> sentences = PDFHelper.getSentences(p2.getFile());
                             results += "<ul>";
                             for (String sentence : sentences) {
                                 if (PDFHelper.containsCitationToReference(sentence, referenceId)) {
