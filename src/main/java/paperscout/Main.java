@@ -17,41 +17,7 @@ public class Main {
         java.util.logging.Logger.getLogger("org.apache.pdfbox").setLevel(Level.SEVERE);
         java.util.logging.Logger.getLogger("edu.umass.cs.mallet.grmm.inference.TRP").setLevel(Level.SEVERE);
 
-        //String fileName = "C:\\Users\\Andrew Bedford\\OneDrive\\Library\\2016 - TaintART - A practical multi-level information-flow tracking system for android runtime.pdf";
-        //String fileName = "C:\\Users\\Andrew\\OneDrive\\Library\\2012 - Precise enforcement of progress-sensitive security.pdf";
-        //String fileName = "C:\\Users\\Andrew\\OneDrive\\Library\\2003 - Language-Based Information-Flow Security.pdf";
-
         try {
-            /*
-            String text = PDFHelper.getText(new File(fileName));
-            //System.out.println("Text in PDF: " + text);
-
-            System.out.println("-------------------------------------------------------------");
-
-            List<String> containsReferenceTo = PDFHelper.getReferences(new File(fileName));
-            for (String r : containsReferenceTo) {
-                System.out.println("Reference : " + r);
-            }
-            System.out.println("-------------------------------------------------------------");
-
-            PDFHelper.getSentences(new File(fileName));
-
-            //Should return 6
-            String paperTitle = "What the app is that? deception and countermeasures in the android user interface";
-            if (PDFHelper.isReferenced(paperTitle, containsReferenceTo)) {
-                System.out.println("Identifier: " + PDFHelper.getReferenceIdentifier(paperTitle, containsReferenceTo));
-            }
-            System.out.println("-------------------------------------------------------------");
-            */
-            //TODO Verify why '2008 -  Formalizing non-interference for a simple bytecode language in Coq.pdf' returns that the reference id is Pie02 instead of SM03
-            //paperTitle = "Language-Based Information-Flow Security";
-            //paperTitle = "A Model for Delimited Information Release";
-            //paperTitle = "Approximate Non-Interference";
-            //paperTitle = "Dynamic intransitive noninterference";
-            //paperTitle = "RobotDroid: A Lightweight Malware Detection Framework on Smartphones"; //(2012) No results
-            //paperTitle = "Malware Obfuscation Techniques: A Brief Survey"; //(2010) 1 result
-            //paperTitle = "Static Analysis of Implicit Control Flow: Resolving Java Reflection and Android Intents";
-
             HashMap<String, HashSet<String>> relationMap = new HashMap<String, HashSet<String>>();
             HashMap<String, String> resultsMap = new HashMap<String, String>();
 
