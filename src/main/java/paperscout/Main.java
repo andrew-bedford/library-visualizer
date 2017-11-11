@@ -7,22 +7,34 @@ import paperscout.data.Paper;
 import paperscout.data.Reference;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 
 public class Main {
-    public static void main(String[] args) {
-        java.util.logging.Logger.getLogger("org.apache.pdfbox").setLevel(Level.SEVERE);
-        java.util.logging.Logger.getLogger("edu.umass.cs.mallet.grmm.inference.TRP").setLevel(Level.SEVERE);
+    static final Map<String, List<String>> parameters = new HashMap<String, List<String>>();
 
+    public static void main(String[] args) {
+
+        parseArguments(args);
+        if (parameters.isEmpty() || parameters.containsKey("-help")) {
+            System.out.println("Usage:");
+            System.out.println("--library [path]              Library path containing the pdf files");
+        }
+        if (parameters.containsKey("-library")) {
+            String libraryPath = parameters.get("-library").get(0);
+            analyzeLibrary(libraryPath);
+        }
+    }
+
+    private static void analyzeLibrary(String libraryPath) {
         try {
+            java.util.logging.Logger.getLogger("org.apache.pdfbox").setLevel(Level.SEVERE);
+            java.util.logging.Logger.getLogger("edu.umass.cs.mallet.grmm.inference.TRP").setLevel(Level.SEVERE);
             HashMap<String, HashSet<String>> relationMap = new HashMap<String, HashSet<String>>();
             HashMap<String, String> resultsMap = new HashMap<String, String>();
 
 
-            Library library = new Library("C:\\Users\\Andrew\\OneDrive\\Library\\PaperScout");
+            Library library = new Library(libraryPath);
 
             int librarySize = library.getSize();
             int fileNumber = 0;
@@ -79,7 +91,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private static void generateVisJsGraph(HashMap<String, HashSet<String>> relationMap, HashMap<String, String> resultsMap) {
@@ -130,5 +141,28 @@ public class Main {
         return f1.getName().substring(7, f1.getName().length()-4);
     }
 
+    private static void parseArguments(String[] args) {
+        List<String> options = null;
+        for (int i = 0; i < args.length; i++) {
+            final String a = args[i];
+
+            if (a.charAt(0) == '-') {
+                if (a.length() < 2) {
+                    System.err.println("Error at argument " + a);
+                    return;
+                }
+
+                options = new ArrayList<String>();
+                parameters.put(a.substring(1), options);
+            }
+            else if (options != null) {
+                options.add(a);
+            }
+            else {
+                System.err.println("Illegal parameter usage");
+                return;
+            }
+        }
+    }
 
 }
