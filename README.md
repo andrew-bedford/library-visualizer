@@ -1,7 +1,6 @@
-# paper-scout
+# library-visualizer
 
-
-![paper scout's interface](https://i.imgur.com/p7STkGS.png)
+![interface](https://i.imgur.com/p7STkGS.png)
 
 ## Usage
 ```
